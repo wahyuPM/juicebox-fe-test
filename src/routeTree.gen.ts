@@ -11,10 +11,17 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as GetStartedImport } from './routes/get-started'
 import { Route as CompareImport } from './routes/compare'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const GetStartedRoute = GetStartedImport.update({
+  id: '/get-started',
+  path: '/get-started',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const CompareRoute = CompareImport.update({
   id: '/compare',
@@ -46,6 +53,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareImport
       parentRoute: typeof rootRoute
     }
+    '/get-started': {
+      id: '/get-started'
+      path: '/get-started'
+      fullPath: '/get-started'
+      preLoaderRoute: typeof GetStartedImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +68,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/get-started': typeof GetStartedRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/get-started': typeof GetStartedRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/get-started': typeof GetStartedRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/compare'
+  fullPaths: '/' | '/compare' | '/get-started'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/compare'
-  id: '__root__' | '/' | '/compare'
+  to: '/' | '/compare' | '/get-started'
+  id: '__root__' | '/' | '/compare' | '/get-started'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompareRoute: typeof CompareRoute
+  GetStartedRoute: typeof GetStartedRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompareRoute: CompareRoute,
+  GetStartedRoute: GetStartedRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +116,8 @@ export const routeTree = rootRoute
       "filePath": "__root.ts",
       "children": [
         "/",
-        "/compare"
+        "/compare",
+        "/get-started"
       ]
     },
     "/": {
@@ -105,6 +125,9 @@ export const routeTree = rootRoute
     },
     "/compare": {
       "filePath": "compare.ts"
+    },
+    "/get-started": {
+      "filePath": "get-started.ts"
     }
   }
 }

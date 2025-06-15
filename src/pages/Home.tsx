@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import type { FunctionComponent } from "../common/types";
 import { Button } from "@/components/ui/Button";
 import { useRouter } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 
 export const Home = (): FunctionComponent => {
 	const router = useRouter();
@@ -24,7 +25,13 @@ export const Home = (): FunctionComponent => {
 	};
 
 	return (
-		<div className="h-screen relative container mx-auto px-4">
+		<motion.div
+			className="h-screen relative container mx-auto px-4"
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 0.3 }}
+		>
 			<div
 				ref={firstDivRef}
 				className="h-[346px] w-full absolute top-1/2 left-1/2 -translate-y-[85%] -translate-x-1/2 flex items-center justify-center"
@@ -56,7 +63,7 @@ export const Home = (): FunctionComponent => {
 					left: `${0}px`,
 				}}
 			>
-				<div className="flex flex-col items-center gap-6 lg:gap-8 px-4">
+				<div className="flex flex-col items-center gap-6 lg:gap-10 px-4">
 					<h1 className="text-2xl lg:text-3xl text-white text-center max-w-[457px] leading-[120%]">
 						Compare your thoughts on
 						<span className="gradient-text"> technology</span> with current
@@ -65,12 +72,12 @@ export const Home = (): FunctionComponent => {
 					</h1>
 					<Button
 						onClick={handleButtonClick}
-						className="py-[19px] px-[35px] lg:text-lg w-full lg:w-auto"
+						className="py-[19px] px-[35px] lg:text-lg w-full max-w-md"
 					>
 						Get a reality check
 					</Button>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
